@@ -1,5 +1,8 @@
-const { Sequelize } = require('sequelize');
-module.exports = new Sequelize("todo_db", 'root', '123456', {
-    dialect: 'mysql',
-    host: 'localhost'
+const mongoose = require('mongoose');
+
+mongoose.set('strictQuery', false);
+mongoose.connect('mongodb://127.0.0.1/todo_db').then(() => {
+    console.log("Connected to Database");
+}).catch(err => {
+    console.log(err);
 });

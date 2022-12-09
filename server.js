@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
 
+// Connection Database
+require('./Models/database');
+
 const { setStatics } = require("./Utils/statics");
-const sequelize = require('./Models/database');
 const adminRoutes = require("./Routes/admin");
 const homeRoutes = require('./Routes/home');
 
@@ -20,8 +22,4 @@ setStatics(app);
 app.use("/Admin", adminRoutes);
 app.use(homeRoutes);
 
-sequelize.sync().then(() => {
-    app.listen(8000, () => console.log("Server Running"));
-}).catch(err => {
-    console.log(err);
-})
+app.listen(8000, () => console.log("Server Running"));

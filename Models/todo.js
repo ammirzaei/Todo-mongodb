@@ -1,22 +1,21 @@
-const { DataTypes } = require('sequelize');
+const mongoose = require('mongoose');
 
-const sequelize = require('./database');
-
-const Todo = sequelize.define('todo', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-    allowNull: false
-  },
+// Schema
+const todoSchema = new mongoose.Schema({
   title: {
-    type: DataTypes.STRING,
-    allowNull: false
+    type: String,
+    require: [true, 'عنوان کار اجباری است'],
+    trim: true,
+    minLength: [5, 'عنوان کار حداقل باید 5 کاراکتر باشد'],
+    maxLength: [255, 'عنوان کار حداکثر میتواند 255 کاراکتر باشد']
   },
   isCompleted: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false
+    type: Boolean,
+    require: false,
+    default: false
   }
 });
+
+const Todo = mongoose.model("Todo", todoSchema);
 
 module.exports = Todo;
